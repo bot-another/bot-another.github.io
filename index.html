@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>lab2.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<div style="text-align:center;font-size:2em;font-weight:bold">中国科学技术大学计算机学院</div>
+<div style="text-align:center;font-size:2em;font-weight:bold">人工智能</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div align=center>
+<img src="./logo.png" style="zoom: 50%;" />
+</div>
+<div style="display: flex;flex-direction: column;align-items: center;font-size:1.5em">
+<div>
+<p>实验题目：实验1</p>
+<p>学生姓名：xxx</p>
+<p>学生学号：PBxxxxxxxx</p>
+<p>完成时间：2023.5.31</p>
+</div>
+</div>
+<div style="page-break-after:always"></div>
+<h2 id="%E4%B8%80%E5%AE%9E%E9%AA%8C11">一、实验1.1</h2>
+<h3 id="1%E6%8F%8F%E8%BF%B0%E4%BD%A0%E7%9A%84%E5%90%AF%E5%8F%91%E5%BC%8F%E5%87%BD%E6%95%B0%E8%AF%81%E6%98%8E%E5%AE%83%E6%98%AF-admissible-%E7%9A%84%E5%B9%B6%E8%AE%BA%E8%AF%81%E5%85%B6%E6%98%AF%E5%90%A6%E6%BB%A1%E2%BE%9C-consistent-%E6%80%A7%E8%B4%A8">1.描述你的启发式函数，证明它是 admissible 的，并论证其是否满⾜ consistent 性质。</h3>
+<pre class="hljs"><code><div>h(n) = ⌊n / 3⌋,n为1的个数:
+admissible:
+    显然，h(n) &lt;= h*(n), 因为每次只能翻转3个1，所以最少需要翻转⌊n/3⌋次，所以h(n)是admissible的。
+comsistent:
+    对于任意的n，|h(n + k) - h(n)| &lt;= 1, k = -3, -1, 1, 3,每次L操作，要么增加1个1或3个1，要么减少1个1或3个1，所以h(n)是consistent的。
+提供一个可采纳但是不connsistent的启发式函数,使用openlist和closelist将图搜索转为树搜索,能快速找到最优解。
+h(n) = sum(⌊每个八连通块的1的个数 / 3⌋) + sum(1的个数)&amp;1 == sum(⌊每个八连通块的1的个数 / 3⌋)&amp;1
+admissible:
+    显然对于当前局面, 进行任意一个通往最优解的L操作(即该L操作里不能是全0的), 该L操作不会跨越两个八连通块, 而每个八连通块至少需要翻转⌊n/3⌋次,这能得出sum(⌊每个八连通块的1的个数 / 3⌋);假如局面上有奇数个1，因为每次L操作，要么增加1个1或3个1，要么减少1个1或3个1，因此需要奇数次操作才能翻转;同理，偶数个1需要偶数步，所以有sum(1的个数)&amp;1 == sum(⌊每个八连通块的1的个数 / 3⌋)&amp;1
+commsistent:
+    反例:
+    0 0 0 1        0 0 0 1
+    0 1 0 0    =&gt;  0 0 1 0
+    0 0 0 1        0 1 0 1
+    1 0 1 0        1 0 1 0 
+</div></code></pre>
+<h3 id="2%E7%AE%97%E6%B3%95%E7%9A%84%E4%B8%BB%E8%A6%81%E6%80%9D%E8%B7%AF">2.算法的主要思路</h3>
+<pre class="hljs"><code><div>保证h一致性的算法:
+将开始局面加入openlist和所有状态集合a，每次从openlist中弹出一个f最小的局面，将其加入closelist。并将其所有的子节点判断是否在a中，如果不在, 加入openlist和a中， 如果在，判断其是否在closelist中，如果在，跳过，如果不在，则在openlist中，判断其f是否更小，如果更小，更新该节点的f和父节点。
+仅仅保证h可采纳的算法:
+将开始局面加入openlist和所有状态集合a，每次从openlist中弹出一个f最小的局面，将其加入closelist。并将其所有的子节点判断是否在a中，如果不在, 加入openlist和a中， 如果在，判断其是否在closelist中，如果在，判断其f是否更小，如果更小，取出加入openlist里，如果不在，则在openlist中，判断其f是否更小，如果更小，更新该节点的f和父节点。
+</div></code></pre>
+<p><img src="1.png" alt=""></p>
+<pre class="hljs"><code><div>扩展子节点方法:
+12L:
+每次扩展遇到的第一个1的12种L的情况，如上图，x为1的位置。因为，每个1至少需要1个L，第一个1也是就这12种L，这12种情况显然包括了通往解的全部情况。
+6L:
+这是12L的改进，每次只扩展下面6种L。因为，假设第一个1在第k行，则小于等于k - 1行都是0，在这个状态通往最优解的路径上显然不会有小于等于k - 1行的L，因为这些L操作都是全0翻转。因此，对于k行的1上面的k-1行0，只有这一行的1的上面6种L会影响，这些0目前是0，最终状态是0，因此这上面6种L对这上一行0是全部抵消的，所以可以将这6种L向下翻转成下面6种L，因此只用扩展下面6种L。
+特殊情况:如果1出现在最后一行，那么扩展上面6种L，因为这时候上面6种L不能向下翻转成下面6种L。
+</div></code></pre>
+<h3 id="3%E4%B8%8E-dijkstra-%E7%AE%97%E6%B3%95%E8%BF%9B%E2%BE%8F%E2%BD%90%E8%BE%83%E5%B9%B6%E5%88%86%E6%9E%90%E4%BD%BF%E2%BD%A4-a-%E2%BD%85%E6%B3%95%E5%B8%A6%E6%9D%A5%E7%9A%84%E4%BC%98%E5%8C%96%E6%95%88%E6%9E%9C">3.与 Dijkstra 算法进⾏⽐较，并分析使⽤ A* ⽅法带来的优化效果。</h3>
+<p>使用6L和h(n) = ⌊n / 3⌋或h(n) = sum(⌊每个八连通块的1的个数 / 3⌋) + sum(1的个数)&amp;1 == sum(⌊每个八连通块的1的个数 / 3⌋)&amp;1</p>
+<p>input0:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">探索节点数</th>
+<th style="text-align:center">扩展节点数</th>
+<th style="text-align:center">运行时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Dijkstra</td>
+<td style="text-align:center">228</td>
+<td style="text-align:center">468</td>
+<td style="text-align:center">0ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*</td>
+<td style="text-align:center">87</td>
+<td style="text-align:center">250</td>
+<td style="text-align:center">0ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*(树)</td>
+<td style="text-align:center">53</td>
+<td style="text-align:center">186</td>
+<td style="text-align:center">1ms</td>
+</tr>
+</tbody>
+</table>
+<p>input1:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">探索节点数</th>
+<th style="text-align:center">扩展节点数</th>
+<th style="text-align:center">运行时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Dijkstra</td>
+<td style="text-align:center">32</td>
+<td style="text-align:center">47</td>
+<td style="text-align:center">0ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*</td>
+<td style="text-align:center">26</td>
+<td style="text-align:center">41</td>
+<td style="text-align:center">0ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*(树)</td>
+<td style="text-align:center">20</td>
+<td style="text-align:center">37</td>
+<td style="text-align:center">1ms</td>
+</tr>
+</tbody>
+</table>
+<p>input2:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">探索节点数</th>
+<th style="text-align:center">扩展节点数</th>
+<th style="text-align:center">运行时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Dijkstra</td>
+<td style="text-align:center">155</td>
+<td style="text-align:center">248</td>
+<td style="text-align:center">1ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*</td>
+<td style="text-align:center">28</td>
+<td style="text-align:center">85</td>
+<td style="text-align:center">0ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*(树)</td>
+<td style="text-align:center">32</td>
+<td style="text-align:center">92</td>
+<td style="text-align:center">1ms</td>
+</tr>
+</tbody>
+</table>
+<p>input3:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">探索节点数</th>
+<th style="text-align:center">扩展节点数</th>
+<th style="text-align:center">运行时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Dijkstra</td>
+<td style="text-align:center">806</td>
+<td style="text-align:center">1010</td>
+<td style="text-align:center">1ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*</td>
+<td style="text-align:center">97</td>
+<td style="text-align:center">266</td>
+<td style="text-align:center">0ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*(树)</td>
+<td style="text-align:center">63</td>
+<td style="text-align:center">193</td>
+<td style="text-align:center">1ms</td>
+</tr>
+</tbody>
+</table>
+<p>input4:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">探索节点数</th>
+<th style="text-align:center">扩展节点数</th>
+<th style="text-align:center">运行时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Dijkstra</td>
+<td style="text-align:center">816</td>
+<td style="text-align:center">991</td>
+<td style="text-align:center">2ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*</td>
+<td style="text-align:center">33</td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">0ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*(树)</td>
+<td style="text-align:center">45</td>
+<td style="text-align:center">171</td>
+<td style="text-align:center">1ms</td>
+</tr>
+</tbody>
+</table>
+<p>input5:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">探索节点数</th>
+<th style="text-align:center">扩展节点数</th>
+<th style="text-align:center">运行时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Dijkstra</td>
+<td style="text-align:center">836</td>
+<td style="text-align:center">1036</td>
+<td style="text-align:center">2ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*</td>
+<td style="text-align:center">151</td>
+<td style="text-align:center">419</td>
+<td style="text-align:center">0ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*(树)</td>
+<td style="text-align:center">101</td>
+<td style="text-align:center">323</td>
+<td style="text-align:center">2ms</td>
+</tr>
+</tbody>
+</table>
+<p>input6:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">探索节点数</th>
+<th style="text-align:center">扩展节点数</th>
+<th style="text-align:center">运行时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Dijkstra</td>
+<td style="text-align:center">38408</td>
+<td style="text-align:center">52361</td>
+<td style="text-align:center">57ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*</td>
+<td style="text-align:center">1027</td>
+<td style="text-align:center">3020</td>
+<td style="text-align:center">0ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*(树)</td>
+<td style="text-align:center">573</td>
+<td style="text-align:center">1731</td>
+<td style="text-align:center">6ms</td>
+</tr>
+</tbody>
+</table>
+<p>input7:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">探索节点数</th>
+<th style="text-align:center">扩展节点数</th>
+<th style="text-align:center">运行时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Dijkstra</td>
+<td style="text-align:center">58684</td>
+<td style="text-align:center">68497</td>
+<td style="text-align:center">90ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*</td>
+<td style="text-align:center">2341</td>
+<td style="text-align:center">6487</td>
+<td style="text-align:center">5ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*(树)</td>
+<td style="text-align:center">331</td>
+<td style="text-align:center">1284</td>
+<td style="text-align:center">5ms</td>
+</tr>
+</tbody>
+</table>
+<p>input8:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">探索节点数</th>
+<th style="text-align:center">扩展节点数</th>
+<th style="text-align:center">运行时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Dijkstra</td>
+<td style="text-align:center">167032</td>
+<td style="text-align:center">182863</td>
+<td style="text-align:center">324ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*</td>
+<td style="text-align:center">1716</td>
+<td style="text-align:center">6237</td>
+<td style="text-align:center">4ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*(树)</td>
+<td style="text-align:center">180</td>
+<td style="text-align:center">811</td>
+<td style="text-align:center">3ms</td>
+</tr>
+</tbody>
+</table>
+<p>input9:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">探索节点数</th>
+<th style="text-align:center">扩展节点数</th>
+<th style="text-align:center">运行时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Dijkstra</td>
+<td style="text-align:center">1441836</td>
+<td style="text-align:center">1573373</td>
+<td style="text-align:center">3561ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*</td>
+<td style="text-align:center">99553</td>
+<td style="text-align:center">194536</td>
+<td style="text-align:center">270ms</td>
+</tr>
+<tr>
+<td style="text-align:center">A*(树)</td>
+<td style="text-align:center">7881</td>
+<td style="text-align:center">23419</td>
+<td style="text-align:center">95ms</td>
+</tr>
+</tbody>
+</table>
+<pre class="hljs"><code><div>A*算法大幅减少了探索节点数和扩展节点数，运行时间也大幅减少。其通过启发式函数来排除大量糟糕的路径，最终减少探索节点数和扩展节点数。
+A*的树搜索进一步减少了探索节点数和扩展节点数，因为其使用的启发式函数是只要求可采纳的，在扩展节点时，利用closelist手动维护一致性。其h值可以更大，能进一步排除糟糕的路径，在节点数较少时，因为h函数计算的复杂性，A*的树搜索的运行时间比A*的运行时间长一点点，但是随着节点数的增加，A*的树搜索优势越来越大。
+</div></code></pre>
+<h2 id="%E4%BA%8C%E5%AE%9E%E9%AA%8C12">二、实验1.2</h2>
+<h3 id="1%E6%8F%8F%E8%BF%B0%E5%AE%9E%E9%AA%8C%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F%E9%9B%86%E5%90%88%E5%80%BC%E5%9F%9F%E9%9B%86%E5%90%88%E4%BB%A5%E5%8F%8A%E7%BA%A6%E6%9D%9F%E9%9B%86%E5%90%88">1.描述实验中的变量集合、值域集合以及约束集合</h3>
+<pre class="hljs"><code><div>变量集合为D*S的工作表，值域集合为{1, 2, ..., N}，对应N个阿姨。约束集合为对应work[i*S + j] == k，即第i天第j个班的阿姨为k,则work[i*S + j - 1] != k, work[i*S + j + 1] != k，即阿姨不能连续上两班;同时sum(work[i*S + j] == k的(i, j)) &gt;= ⌊D * S / N⌋, 即每个阿姨至少上⌊D * S / N⌋班。
+非硬性约束:work[i*S + j - 1] = k且people[k].req包括(i, j)，即阿姨k在第i天第j个班上班，且阿姨k自身希望在第i天第j个班上班。该约束要求最大化。
+</div></code></pre>
+<h3 id="2-%E7%AE%97%E6%B3%95%E7%9A%84%E4%B8%BB%E8%A6%81%E6%80%9D%E8%B7%AF">2. 算法的主要思路</h3>
+<pre class="hljs"><code><div>优先安排请求最少的工作，把没有请求的工作放入例外集合中最后处理。
+挑好工作后，对于请求这一班的阿姨按照工作量的升序，依次尝试安排(dfs进去), 如果dfs失败，尝试下一个阿姨(dfs进去)。
+最后，dfs最深时，所有没有请求的工作按照所有阿姨工作量升序尝试安排，如果失败，回溯，成功则结束。
+
+成功:工作量要求被满足、阿姨无连续排班和所有工作都被安排。
+</div></code></pre>
+<pre class="hljs"><code><div>    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">dfs</span><span class="hljs-params">()</span></span>{<span class="hljs-comment">//深度优先安排</span>
+        <span class="hljs-keyword">auto</span> W = get_work();<span class="hljs-comment">//获取请求人数不为0的工作</span>
+        <span class="hljs-keyword">if</span>(W != works_sort.end()){
+            work tmp = *W;
+            works_sort.erase(W);
+            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;req = tmp.req;
+            sort(req.begin(), req.end(), [&amp;](<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b){
+                <span class="hljs-keyword">return</span> people[a] &lt; people[b];
+            });<span class="hljs-comment">//对于对该工作有请求的人，按照工作数升序排列</span>
+            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> i : req){<span class="hljs-comment">//按照工作数升序尝试安排</span>
+                <span class="hljs-keyword">if</span>(arrange(get&lt;<span class="hljs-number">0</span>&gt;(tmp.pos), get&lt;<span class="hljs-number">1</span>&gt;(tmp.pos), i)){
+                    ++max_req;<span class="hljs-comment">//统计安排的满足请求数</span>
+                    <span class="hljs-keyword">if</span>(dfs()){
+                        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+                    }
+                    <span class="hljs-keyword">else</span>{
+                        not_arrange(get&lt;<span class="hljs-number">0</span>&gt;(tmp.pos), get&lt;<span class="hljs-number">1</span>&gt;(tmp.pos), i);
+                        --max_req;<span class="hljs-comment">//撤销安排,减少满足请求数</span>
+                    }
+                }
+            }
+            works_sort.push_back(tmp);<span class="hljs-comment">//安排失败，将该工作放回works_sort中</span>
+            sort(works_sort.begin(), works_sort.end());<span class="hljs-comment">//重新排序,按照请求人数升序排列</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+        <span class="hljs-keyword">else</span>{<span class="hljs-comment">//当所有请求人数不为0的工作都安排完毕,开始安排请求人数为0的工作</span>
+            <span class="hljs-keyword">if</span>(zero.empty() &amp;&amp; suc.all())<span class="hljs-comment">//当所有工作都安排完毕,且所有人都满足工作数约束时,返回true</span>
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">else</span>{
+                <span class="hljs-keyword">auto</span> i = *zero.begin();
+                zero.erase(zero.begin());<span class="hljs-comment">//对于请求人数为0的工作,优先工作数未满足约束的人</span>
+                <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j&lt;=N; j++){
+                    <span class="hljs-keyword">if</span>(suc[j] == <span class="hljs-number">0</span> || suc.all()){
+                        <span class="hljs-keyword">if</span>(arrange(get&lt;<span class="hljs-number">0</span>&gt;(i.pos), get&lt;<span class="hljs-number">1</span>&gt;(i.pos), j)){
+                            <span class="hljs-keyword">if</span>(dfs()){
+                                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+                            }
+                            <span class="hljs-keyword">else</span>{
+                                not_arrange(get&lt;<span class="hljs-number">0</span>&gt;(i.pos), get&lt;<span class="hljs-number">1</span>&gt;(i.pos), j);
+                            }
+                        }
+                    }
+                    <span class="hljs-keyword">if</span>(j == N){
+                        zero.push_back(i);<span class="hljs-comment">//不成功,将该工作放回zero中</span>
+                        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+                    }
+                }
+                <span class="hljs-keyword">return</span> suc.all() &amp;&amp; max_work == D * S;<span class="hljs-comment">//当所有人都满足工作数约束,且所有工作都安排完毕时,返回true</span>
+            }
+        }
+    }
+</div></code></pre>
+<h3 id="3%E4%BD%BF%E2%BD%A4%E7%9A%84%E4%BC%98%E5%8C%96%E2%BD%85%E6%B3%95%E5%B9%B6%E5%88%86%E6%9E%90%E4%BD%BF%E2%BD%A4%E8%AF%A5%E4%BC%98%E5%8C%96%E2%BD%85%E6%B3%95%E5%B8%A6%E6%9D%A5%E7%9A%84%E4%BC%98%E5%8C%96%E6%95%88%E6%9E%9C">3.使⽤的优化⽅法，并分析使⽤该优化⽅法带来的优化效果</h3>
+<pre class="hljs"><code><div>1.每次优先挑非0请求且最小请求的工作进行安排。(MRV)
+2.对于每个阿姨，按照工作量升序，依次尝试安排(dfs进去), 如果dfs失败，尝试下一个阿姨(dfs进去)。(最大可能满足工作量要求)
+3.进行约束传播和前向检验,每次安排都会将这个阿姨不能在上一班或者下一班安排的约束加入对应集合里，同时在get_work时剔除req集合和access(可行阿姨)集合的交集大小为0的work，将其放入zero集合里(req一开始就为0的也放入这里)。
+这样，相当于减少了很多不必要的搜索，提高效率，同时，可以保证一定程度的最优性。
+</div></code></pre>
+<pre class="hljs"><code><div>    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;work&gt;::<span class="hljs-function">iterator <span class="hljs-title">get_work</span><span class="hljs-params">()</span></span>{<span class="hljs-comment">//获取请求人数不为0的工作,按照work_sort的顺序</span>
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> it = works_sort.begin(); it != works_sort.end();){
+            <span class="hljs-keyword">if</span>(it-&gt;req.size() != <span class="hljs-number">0</span>){
+                <span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; tmp{it-&gt;req.begin(), it-&gt;req.end()};
+                <span class="hljs-comment">//交集</span>
+                <span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; res;
+                set_intersection(tmp.begin(), tmp.end(), it-&gt;access.begin(), it-&gt;access.end(), inserter(res, res.begin()));
+                <span class="hljs-keyword">if</span>(res.size() == <span class="hljs-number">0</span>){<span class="hljs-comment">//当交集为空时,说明该工作无法安排,将其放入zero表中</span>
+                    zero.push_back(*it);
+                    it = works_sort.erase(it);
+                    <span class="hljs-keyword">continue</span>;
+                }
+                <span class="hljs-keyword">return</span> it;
+            }
+            <span class="hljs-keyword">else</span>{
+                zero.push_back(*it);<span class="hljs-comment">//将请求人数为0的工作放入zero表中</span>
+                it = works_sort.erase(it);<span class="hljs-comment">//从works_sort中删除</span>
+            }
+        }
+        <span class="hljs-keyword">return</span> works_sort.end();
+    }
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">arrange</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j, <span class="hljs-keyword">int</span> people)</span></span>{<span class="hljs-comment">//给给定位置安排人员,进行约束传播,统计对应人员的工作数,判断是否满足约束</span>
+        <span class="hljs-keyword">if</span>(works[i*S+j].people == <span class="hljs-number">0</span> &amp;&amp; works[i*S+j].access.find(people) != works[i*S+j].access.end()){<span class="hljs-comment">//判断是否可以安排,当位置已经安排或者access表中没有该人员时,不能安排</span>
+            works[i*S+j].people = people;
+            works[i * S + j - <span class="hljs-number">1</span>].access.erase(people);<span class="hljs-comment">//约束传播</span>
+            works[i * S + j + <span class="hljs-number">1</span>].access.erase(people);<span class="hljs-comment">//约束传播</span>
+            <span class="hljs-keyword">this</span>-&gt;people[people]++;<span class="hljs-comment">//统计人员工作数</span>
+            max_work++;
+            <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>-&gt;people[people] &gt;= nums){<span class="hljs-comment">//判断是否满足工作数约束</span>
+                suc[people] = <span class="hljs-number">1</span>;
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+</div></code></pre>
+<h3 id="4%E7%89%B9%E5%88%AB%E7%9A%84%E8%AF%B7%E5%9C%A8%E6%8A%A5%E5%91%8A%E4%B8%AD%E7%BB%99%E5%87%BA-input0txt-%E4%B8%AD%E4%BD%A0%E7%9A%84%E5%AE%89%E6%8E%92%E2%BD%85%E5%BC%8F">4.特别的，请在报告中给出 input0.txt 中你的安排⽅式。</h3>
+<pre class="hljs"><code><div>1,2,3
+2,1,2
+3,2,1
+3,1,3
+1,2,1
+3,2,3
+1,2,3
+20
+</div></code></pre>
+
+</body>
+</html>
